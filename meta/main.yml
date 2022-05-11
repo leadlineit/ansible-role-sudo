@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: sudo
+  namespace: leadlineit
+  author: Stas Stavnichuk
+  description: Install and configure sudo package
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+        - buster
+        - stretch
+  galaxy_tags:
+    - system
+    - debian
+    - sudo

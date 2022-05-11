@@ -1,0 +1,11 @@
+#{{ ansible_managed }}
+{% if item.groups is defined %}
+{% for v in item.groups %}
+%{{ v }} {{ item.command }}
+{% endfor %}
+{% endif %}
+{% if item.users is defined %}
+{% for v in item.users %}
+{{ v }} {{ item.command }}
+{% endfor %}
+{% endif %}

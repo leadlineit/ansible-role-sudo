@@ -1,0 +1,8 @@
+---
+- name: Update repo cache and install sudo package
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - sudo

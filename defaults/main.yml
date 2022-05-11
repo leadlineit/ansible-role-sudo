@@ -1,0 +1,14 @@
+---
+sudo:
+  - file: root
+    users:
+      - your_user
+    groups:
+      - your_group
+    command: ALL=(ALL) NOPASSWD:ALL
+  - file: users
+    users:
+      - your_user
+    groups:
+      - your_group
+    command: ALL=(ALL) ALL:ALL
