@@ -9,7 +9,7 @@
 
 - name: Copy custom sudoers.d file(s)
   ansible.builtin.template:
-    src: sudoers.j2
+    src: sudo.j2
     dest: /etc/sudoers.d/{{ item.file }}
     owner: root
     group: root
