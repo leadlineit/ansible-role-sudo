@@ -3,41 +3,44 @@
   ansible.builtin.template:
     src: sudoers.j2
     dest: /etc/sudoers
+    mode: '0440'
     owner: root
     group: root
-    mode: '0440'
 
 - name: Copy custom sudoers.d file(s)
+  when: sudo is defined
   ansible.builtin.template:
     src: sudo.j2
     dest: /etc/sudoers.d/{{ item.file }}
     owner: root
     group: root
     mode: '0440'
-  with_items: "{{ sudo }}"
-  when: sudo is defined
+  with_items:
+    - "{{ sudo }}"
 
 - name: Check unmanaged sudoers file(s)
   ansible.builtin.shell: set -e -o pipefail && ls -1p /etc/sudoers.d | grep -v /
   args:
     executable: /bin/bash
-  register: unmanaged_files
   changed_when: false
+  register: unmanaged_files
 
 - name: Whitelist managed sudoers file(s)
   ansible.builtin.set_fact: 
     managed_files: "{{ sudo | map(attribute='file') | list }}"
 
 - name: Delete unmanaged sudoers file(s)
+  when: " item != 'README' and item not in managed_files"
   ansible.builtin.file:
     path: /etc/sudoers.d/{{ item }}
     state: absent
-  with_items: "{{ unmanaged_files.stdout_lines }}"
-  when: " item != 'README' and item not in managed_files"
+  with_items:
+    - "{{ unmanaged_files.stdout_lines }}"
 
 - name: Delete sudoers.d file(s)
+  when: item.state | default('present') == 'absent'
   ansible.builtin.file:
     path: /etc/sudoers.d/{{ item.file }}
     state: absent
-  with_items: "{{ sudo }}"
-  when: item.state | default('present') == 'absent'
+  with_items:
+    - "{{ sudo }}"

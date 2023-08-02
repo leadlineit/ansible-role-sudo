@@ -1,10 +1,12 @@
 ---
-- import_tasks: install.yml
+- name: Include ./install.yml
+  ansible.builtin.import_tasks: install.yml
   tags:
     - install_sudo
     - install
 
-- import_tasks: configure.yml
+- name: Include ./configure.yml
+  ansible.builtin.import_tasks: configure.yml
   tags:
     - configure_sudo
     - configure
