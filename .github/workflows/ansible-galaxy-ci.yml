@@ -23,7 +23,7 @@
       runs-on: ubuntu-latest
       steps:
         - name: checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
           with:
             path: 'leadlineit.sudo'
   
@@ -57,7 +57,7 @@
             - '9'
       steps:
         - name: checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
           with:
             path: 'leadlineit.sudo'
   
@@ -86,7 +86,7 @@
       runs-on: ubuntu-latest
       steps:
         - name: checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
           with:
             path: 'leadlineit.sudo'
   
